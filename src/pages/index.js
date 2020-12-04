@@ -1,22 +1,102 @@
 import React from "react"
-import { Link } from "gatsby"
+import { graphql, Link, useStaticQuery } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
+import {Image,Wrapper,BottomEdgeDown, BottomEdgeUp,Artist} from "./pageStyles/pageStyles"
 import SEO from "../components/seo"
 
-const IndexPage = () => (
+const IndexPage = () => {
+
+  const {
+    wpcontent:{
+      page:{
+        home:{
+          description,
+          title,
+          featuredMovies,
+          bannerFoto
+        }
+      }
+    }
+  }=useStaticQuery(graphql`
+  query
+  {
+    wpcontent {
+      page(id: "home", idType: URI) {
+        home {
+          featuredMovies {
+            ... on WPGraphql_Movie {
+              slug
+              movie {
+                title
+                releaseYear
+                cover {
+                  altText
+                  sourceUrl
+            imageFile {
+              childImageSharp {
+                fluid(quality: 100) {
+                  ...GatsbyImageSharpFluid_withWebp
+                }
+              }
+            }
+                }
+              }
+            }
+          }
+          title
+          description
+          bannerFoto {
+            altText
+            sourceUrl
+            imageFile {
+              childImageSharp {
+                fluid(quality: 100) {
+                  ...GatsbyImageSharpFluid_withWebp
+                  
+              }
+            }
+          }
+        }
+        }
+      }
+    }
+  }
+`)
+console.log(featuredMovies)
+  return (
+    
   <Layout>
     <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
+    <Wrapper>
+    <div className="banner"><Image fluid={bannerFoto.imageFile.childImageSharp.fluid} alt={bannerFoto.altText}></Image>
+    <div className="inner-div">
+      <p className="header-title">{title}</p>
+      <p className="header-description">{description}</p>
     </div>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
+    <BottomEdgeDown color={"black"}></BottomEdgeDown>
+    </div>
+    <div className="description">
+      <p>{description}</p>
+      <BottomEdgeUp color={"black"}></BottomEdgeUp>
+    </div>
+    <div className="artists"> 
+    <h2>Featured Movies</h2>
+    <div className="artist-items">
+    {featuredMovies.map(({movie,slug})=>(
+      <Artist to={`/${slug}`}>
+        <Image fluid={movie.cover.imageFile.childImageSharp.fluid} altText={movie.cover.altText}></Image>
+        <div className="artist-info">
+          <p>{movie.title}</p>
+          <p>{movie.releaseYear}</p>
+        </div>
+      </Artist>
+    ))}
+
+    </div>
+    </div>
+    </Wrapper>
   </Layout>
-)
+)}
 
 export default IndexPage
