@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import Img from "gatsby-image"
 import { Link } from "gatsby"
-import { COLORS, FONT_FAMILIES, MEDIA_QUERIES } from "../../constants"
+import { COLORS, FONT_FAMILIES, MEDIA_QUERIES } from "../constants"
 
 export const Wrapper = styled.div`
   .banner {
@@ -45,10 +45,10 @@ export const Wrapper = styled.div`
         font-family: ${FONT_FAMILIES.TITLE};
         font-size: 3rem;
         font-weight: 600;
-        color: white;
+        color: ${COLORS.SECONDARY};
         text-transform: uppercase;
         margin: auto;
-        border-bottom: solid 5px white;
+       
         margin-bottom: 1rem;
 
         @media (max-width: ${MEDIA_QUERIES.MEDIUM}) {
@@ -83,7 +83,7 @@ export const Wrapper = styled.div`
     p {
       width: 70%;
       font-size: 1.3rem;
-      color: ${COLORS.TERTIARY};
+      color: ${COLORS.SECONDARY};
       text-align: center;
       line-height: 2rem;
       margin: auto;
@@ -139,7 +139,7 @@ export const Wrapper = styled.div`
     h2 {
       font-family: ${FONT_FAMILIES.TITLE};
       font-size: 3rem;
-      color: white;
+      color: ${COLORS.SECONDARY};
       text-transform: uppercase;
       margin-bottom: 3rem;
 
@@ -221,7 +221,7 @@ export const BottomEdgeDown = styled.div`
   position: absolute;
   bottom: 0;
   width: 0;
-  border-bottom: 130px solid ${COLORS.TERTIARY};
+  border-bottom: 130px solid ${COLORS.PRIMARY};
   border-right: 100vw solid transparent;
 
   &:before {
@@ -237,7 +237,7 @@ export const BottomEdgeUp = styled.div`
   position: absolute;
   bottom: 0;
   width: 0;
-  border-bottom: 140px solid ${COLORS.TERTIARY};
+  border-bottom: 140px solid ${COLORS.PRIMARY};
   border-right: 100vw solid transparent;
 
   &:after {

@@ -1,9 +1,10 @@
 import React from "react"
-import { graphql, Link, useStaticQuery } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby"
 
 import Layout from "../components/layout"
-import {Image,Wrapper,BottomEdgeDown, BottomEdgeUp,Artist} from "./pageStyles/pageStyles"
+import {Image,Wrapper, BottomEdgeUp,Artist} from "../pageStyles/pageStyles"
 import SEO from "../components/seo"
+import { COLORS } from "../constants"
 
 const IndexPage = () => {
 
@@ -35,7 +36,7 @@ const IndexPage = () => {
                   sourceUrl
             imageFile {
               childImageSharp {
-                fluid(quality: 100) {
+                fluid(quality: 50) {
                   ...GatsbyImageSharpFluid_withWebp
                 }
               }
@@ -51,7 +52,7 @@ const IndexPage = () => {
             sourceUrl
             imageFile {
               childImageSharp {
-                fluid(quality: 100) {
+                fluid(quality:25) {
                   ...GatsbyImageSharpFluid_withWebp
                   
               }
@@ -63,29 +64,29 @@ const IndexPage = () => {
     }
   }
 `)
-console.log(featuredMovies)
+
   return (
     
   <Layout>
     <SEO title="Home" />
     <Wrapper>
-    <div className="banner"><Image fluid={bannerFoto.imageFile.childImageSharp.fluid} alt={bannerFoto.altText}></Image>
+    <div className="banner"><Image fluid={bannerFoto.imageFile.childImageSharp.fluid} alt={bannerFoto.altText} loading="lazy"></Image>
     <div className="inner-div">
       <p className="header-title">{title}</p>
-      <p className="header-description">{description}</p>
+      
     </div>
-    <BottomEdgeDown color={"black"}></BottomEdgeDown>
+    <BottomEdgeUp color={COLORS.SECONDARY}></BottomEdgeUp>
     </div>
     <div className="description">
       <p>{description}</p>
-      <BottomEdgeUp color={"black"}></BottomEdgeUp>
+      <BottomEdgeUp color={COLORS.SECONDARY}></BottomEdgeUp>
     </div>
     <div className="artists"> 
     <h2>Featured Movies</h2>
     <div className="artist-items">
     {featuredMovies.map(({movie,slug})=>(
-      <Artist to={`/${slug}`}>
-        <Image fluid={movie.cover.imageFile.childImageSharp.fluid} altText={movie.cover.altText}></Image>
+      <Artist key={movie.title} to={`/${slug}`}>
+        <Image fluid={movie.cover.imageFile.childImageSharp.fluid} altText={movie.cover.altText} loading="lazy"></Image>
         <div className="artist-info">
           <p>{movie.title}</p>
           <p>{movie.releaseYear}</p>

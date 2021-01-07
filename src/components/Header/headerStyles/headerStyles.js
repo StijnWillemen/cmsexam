@@ -8,12 +8,12 @@ export const HeaderWrapper = styled.header`
   left: 0;
   top: 0;
   width: 100%;
-  height: 80px;
-  background: ${COLORS.BLACK};
+  height: 100px;
+  background: ${COLORS.PRIMARY};
   justify-content: space-between;
   align-items: center;
   padding: 0 5%;
-  margin-bottom: 1.45rem;
+  margin-bottom: 0rem;
   z-index: 999;
 
   a {
@@ -53,12 +53,12 @@ export const MenuList = styled.ul`
     }
 
     a:hover {
-      color: ${COLORS.TERTIARY};
+      color: ${COLORS.SECONDARY};
     }
   }
 
   .nav-active {
-    color: ${COLORS.TERTIARY};
+    color: ${COLORS.SECONDARY};
   }
 `
 
